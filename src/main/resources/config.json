@@ -1,0 +1,25 @@
+{
+    "mail": {
+        "username": "594207613@qq.com",
+        "nickname": "chty_syq",
+        "password": "developing",
+        "smtp": "smtp.qq.com",
+        "port": 465
+    },
+    "jobs": [
+        {
+            "username": "3180102974",
+            "password": "yxlm0824",
+            "mail": "***",
+            "cron": "0/5 * * * * ? *",
+            "delay": true
+        },
+        {
+            "username": "***",
+            "password": "***",
+            "mail": "***",
+            "cron": "0 10 0 * * ? *",
+            "delay": true
+        }
+    ]
+}
