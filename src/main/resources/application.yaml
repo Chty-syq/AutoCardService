@@ -1,0 +1,27 @@
+app:
+  zju-login-client:
+    pubkey-url: https://zjuam.zju.edu.cn/cas/v2/getPubKey
+    login-url: https://zjuam.zju.edu.cn/cas/login
+    cookie-cached: false
+  health-report-client:
+    report-url: https://healthreport.zju.edu.cn/ncov/wap/default/index
+    submit-url: https://healthreport.zju.edu.cn/ncov/wap/default/save
+  mail:
+    domain: qq.com
+    from: ${spring.mail.username}@${app.mail.domain}
+    nickname: 健康打卡服务
+  test: true
+    
+spring:
+  mail:
+    host: smtp.qq.com
+    username: 594207613
+    password: vvhxpbootyjjbfhh
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    default-encoding: UTF-8

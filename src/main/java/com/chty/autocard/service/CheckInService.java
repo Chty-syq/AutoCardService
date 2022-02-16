@@ -5,25 +5,26 @@ import com.alibaba.fastjson.JSONObject;
 import com.chty.autocard.config.AppConfig;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Date;
 
-@Service
+@Component
 public class CheckInService {
+    
+    private final AppConfig appConfig;
 
-    @Autowired
-    private AppConfig appConfig;
-
-    private Scheduler scheduler;
+    private final Scheduler scheduler;
+    
+    @Value("${app.test}")
+    private boolean isTest;
 
     public CheckInService() throws SchedulerException, IOException {
         this.appConfig = new AppConfig();
         SchedulerFactory factory = new StdSchedulerFactory();
         this.scheduler = factory.getScheduler();
-        this.loadJobs();
     }
 
     private void loadJobs() throws SchedulerException {
@@ -32,7 +33,8 @@ public class CheckInService {
             if (job instanceof JSONObject) {
                 JSONObject jobJson = (JSONObject) job;
                 JobDataMap jobDataMap = new JobDataMap(jobJson);
-                String cron = jobJson.getString("cron");
+                jobDataMap.put("isTest", isTest);
+                String cron = isTest ? "0/10 * * * * ? *" : "0 0 8 * * ? *";
                 this.addJob(CheckInJob.class, cron, new Date(), jobDataMap);
             }
         }
@@ -49,6 +51,7 @@ public class CheckInService {
     }
     
     public void start() throws SchedulerException {
+        this.loadJobs();
         scheduler.start();
     }
 

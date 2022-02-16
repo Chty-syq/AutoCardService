@@ -5,15 +5,18 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class AutocardApplication {
 	
 	@Autowired
 	CheckInService checkInService;
+	
+	public static ApplicationContext applicationContext;
 
 	public static void main(String[] args) {
-		SpringApplication.run(AutocardApplication.class, args);
+		applicationContext = SpringApplication.run(AutocardApplication.class, args);
 	}
 
 	@Autowired
