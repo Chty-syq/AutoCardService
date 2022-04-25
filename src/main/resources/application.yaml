@@ -1,3 +1,17 @@
+spring:
+  mail:
+    host: smtp.qq.com
+    username: 594207613
+    password: vvhxpbootyjjbfhh
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
 app:
   zju-login-client:
     pubkey-url: https://zjuam.zju.edu.cn/cas/v2/getPubKey
@@ -10,18 +24,5 @@ app:
     domain: qq.com
     from: ${spring.mail.username}@${app.mail.domain}
     nickname: 健康打卡服务
-  test: true
-    
-spring:
-  mail:
-    host: smtp.qq.com
-    username: 594207613
-    password: vvhxpbootyjjbfhh
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-    default-encoding: UTF-8
+  cron: "0 0 8 * * ? *"
+  mode: 0   # 0: work,  1: work once,  2: test

@@ -16,16 +16,16 @@ public class AppConfig {
 
     private final Charset APP_CHARSET = StandardCharsets.UTF_8;
 
-    public AppConfig() throws IOException {
-        loadJsonConfig();
-    }
-
     public void loadJsonConfig() throws IOException {
-        FileInputStream fs = new FileInputStream("src/main/resources/config.json");
+        String fileName = "src/main/resources/config.json";
+        FileInputStream fs = new FileInputStream(fileName);
         this.config = JSONObject.parseObject(new String(fs.readAllBytes(), APP_CHARSET));
     }
 
-    public JSONArray getJobs() {
+    public JSONArray getJobs() throws IOException {
+        if(this.config == null) {
+            loadJsonConfig();
+        }
         JSONArray jsonArray = config.getJSONArray("jobs");
         return jsonArray == null ? new JSONArray() : jsonArray;
     }

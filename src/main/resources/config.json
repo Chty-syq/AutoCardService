@@ -4,12 +4,19 @@
             "username": "3180102974",
             "password": "yxlm0824",
             "email": "594207613@qq.com",
-            "delay": true
+            "delay": true,
+            "test": true
         },
         {
             "username": "3180104921",
             "password": "123321qweiop",
             "email": "fyk4916528@126.com",
+            "delay": true
+        },
+        {
+            "username": "3180101833",
+            "password": "benazaz12",
+            "email": "1174548287@qq.com",
             "delay": true
         }
     ]
