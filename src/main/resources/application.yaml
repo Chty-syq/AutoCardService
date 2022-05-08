@@ -20,9 +20,10 @@ app:
   health-report-client:
     report-url: https://healthreport.zju.edu.cn/ncov/wap/default/index
     submit-url: https://healthreport.zju.edu.cn/ncov/wap/default/save
+    code-url: https://healthreport.zju.edu.cn/ncov/wap/default/code
   mail:
     domain: qq.com
     from: ${spring.mail.username}@${app.mail.domain}
     nickname: 健康打卡服务
   cron: "0 0 8 * * ? *"
-  mode: 0   # 0: work,  1: work once,  2: test
+  mode: 1   # 0: work,  1: work once,  2: test,  3: test once

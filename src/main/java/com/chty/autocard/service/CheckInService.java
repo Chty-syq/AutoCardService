@@ -48,6 +48,9 @@ public class CheckInService {
                     case 2:
                         if(!jobDataMap.getBooleanValue("test")) break;
                         this.addJob(CheckInJob.class, "0/10 * * * * ? *", new Date(), jobDataMap); break;
+                    case 3:
+                        if(!jobDataMap.getBooleanValue("test")) break;
+                        checkInOperation.enact(jobDataMap); break;
                 }
             }
         }

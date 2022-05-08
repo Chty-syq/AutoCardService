@@ -43,23 +43,23 @@ public class CheckInOperation {
             Thread.sleep(seconds * 1000);
         }
 
-        int retry = 5;
-        Pair<Boolean, String> result = Pair.of(false, null);
-        while(!result.getLeft() && retry > 0) {
-            if(retry < 5) {
-                long seconds = (long) (Math.random() * 60);
-                Thread.sleep(seconds * 1000);
-            }
+        Pair<Boolean, String> result = Pair.of(false, "打卡失败");
+        int retryNum = 5;
+        for(int i = 0; i < retryNum; ++i) {
             result = this.AutoCard(username, password, email);
-            retry = retry - 1;
             LoggerUtils.info(username + ": " + result.getRight());
+            if(result.getLeft()) break;
+            long seconds = (long) (Math.random() * 30);
+            Thread.sleep(seconds * 1000);
         }
-
-        try {
-            emailClient.send(email, "健康打卡通知", result.getRight());
-            LoggerUtils.info(username + ": 邮件发送成功");
-        } catch (Exception e) {
-            LoggerUtils.info(username + ": 邮件发送失败");
+        
+        if(mode == 0 || mode == 1) {
+            try {
+                emailClient.send(email, "健康打卡通知", result.getRight());
+                LoggerUtils.info(username + ": 邮件发送成功");
+            } catch (Exception e) {
+                LoggerUtils.info(username + ": 邮件发送失败");
+            }
         }
     }
 
@@ -74,14 +74,21 @@ public class CheckInOperation {
 
         try {
             boolean success = loginClient.login(username, password);
-            if(!success) return Pair.of(false, username + ": 登录失败");
+            if(!success) {
+                return Pair.of(false, username + ": 登录失败");
+            }
         } catch (Exception e) {
             return Pair.of(false, username + ": 登录失败");
         }
 
         try {
             Pair<Integer,String> result = reportClient.submit();
-            if(result.getLeft() == -1)  return Pair.of(false, username + ": " + result.getRight());
+            if(result.getLeft() == -1) {
+                return Pair.of(false, username + ": " + result.getRight());
+            }
+            if(result.getRight().contains("验证码错误")) {
+                return Pair.of(false, username + ": " + result.getRight());
+            }
             return Pair.of(true, username + ": " + result.getRight());
         } catch (Exception e) {
             return Pair.of(false, username + ": 打卡失败");
