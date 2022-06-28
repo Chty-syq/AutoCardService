@@ -49,7 +49,8 @@ public class HealthReportClient{
     private HttpClient httpClient;
     
     static {
-        System.load("C:\\Users\\Chty_syq\\Downloads\\opencv_java340\\opencv_java340-x64.dll");
+        //System.load(new File("src/main/resources/opencv_java340-x64.dll").getAbsolutePath());
+        //System.load(new File("src/main/resources/libopencv_java320.so").getAbsolutePath());
     }
     
     public void filterImage(File imageFile) {
@@ -124,8 +125,9 @@ public class HealthReportClient{
         infoJsonAll.putAll(infoJson2);
         infoJsonAll.putAll(oldInfoJson);
         
-        String verifyCode = getCode();
-        
+        //String verifyCode = getCode();
+        String verifyCode = "";
+
         infoJsonAll.forEach((String name, Object value) -> {
             switch (name) {
                 case "date":

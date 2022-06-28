@@ -26,4 +26,4 @@ app:
     from: ${spring.mail.username}@${app.mail.domain}
     nickname: 健康打卡服务
   cron: "0 0 8 * * ? *"
-  mode: 1   # 0: work,  1: work once,  2: test,  3: test once
+  mode: 0   # 0: work,  1: work once,  2: test,  3: test once
